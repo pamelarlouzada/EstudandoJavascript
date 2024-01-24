@@ -5,12 +5,16 @@ const longoBt = document.querySelector('.app__card-button--longo');
 const banner = document.querySelector('.app__image');
 const titulo = document.querySelector('.app__title');
 const botoes = document.querySelectorAll('.app__card-button');
+const startPauseBt = document.querySelector('#start-pause')
 const musicaFocoInput = document.querySelector('#alternar-musica');
+const iniciarOuPausarBt = document.querySelector('#start-pause span')
+const iconePause = document.querySelector('.app__card-primary-butto-icon');
+const iconePlay = document.querySelector('.app__card-primary-butto-icon');
+
 const musica = new Audio('/sons/luna-rise-part-one.mp3');
 const sonPause = new Audio('/sons/pause.mp3');
 const sonPlay = new Audio('/sons/play.wav');
 const sonBeep = new Audio('/sons/beep.mp3');
-const startPauseBt = document.querySelector('#start-pause')
 
 let tempoDecorridoEmSegundos = 5;
 let intervaloId = null
@@ -81,7 +85,7 @@ function alterarContexto (contexto) {
 const contagemRegressiva = () => {
     if(tempoDecorridoEmSegundos <= 0){
         zerar()
-        sonBeep.play()
+        // sonBeep.play()
         return
     }
     tempoDecorridoEmSegundos -= 1
@@ -92,16 +96,21 @@ const contagemRegressiva = () => {
 startPauseBt.addEventListener('click', iniciarOuPausar)
 
 function iniciarOuPausar() {
-    sonPlay.play()
     if(intervaloId){
+        sonPause.play()
         zerar()
         return
     }
+    sonPlay.play()
     intervaloId = setInterval(contagemRegressiva, 1000)
+    iconePause.setAttribute('src', '/imagens/pause.png');
+    iniciarOuPausarBt.textContent = "Pausar"
 }
 
 function zerar(){
     clearInterval(intervaloId);
+    iniciarOuPausarBt.textContent = "Começar"
+    iconePlay.setAttribute('src', '/imagens/play_arrow.png');
     intervaloId = null
 }
 
