@@ -90,13 +90,11 @@ function alterarContexto (contexto) {
 const contagemRegressiva = () => {
     if(tempoDecorridoEmSegundos <= 0){
         zerar()
-        // sonBeep.play()
         return
     }
     tempoDecorridoEmSegundos -= 1
     mostrarTempo();
 }
-
 
 startPauseBt.addEventListener('click', iniciarOuPausar)
 
